@@ -1,4 +1,4 @@
-name: Deploy Asciidoc to GitHub Pages
+name: Update from Asciidoc to GitHub Pages
 
 on:
   push:
