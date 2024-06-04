@@ -1,0 +1,31 @@
+name: Update from Asciidoc to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # またはデプロイしたい他のブランチ
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.7'  # 使用したいRubyのバージョン
+
+    - name: Install Asciidoctor
+      run: gem install asciidoctor
+
+    - name: Build Asciidoc
+      run: asciidoctor -D build/ index.adoc
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
